@@ -1,38 +1,48 @@
 const bye = 'ok, bye';
 let isValid = true;
 
-const userMessage = prompt('enter hello world');
+const userMessage = prompt('write some words'); // validation
 if (userMessage === null) {
     alert(bye);
-    isValid = false;
 }
-else if(userMessage !== 'hello world'){
-    alert('you need to put hello world');
-    isValid = false;
+else if(!/^[a-zA-Z\s]+$/.test(userMessage)){
+    alert('you can put only letters');
+}
+else if(!userMessage.trim()){
+    alert('nothing is entered');
 }
 
-
+else {
 const userToRemoveLetters = prompt('enter letters that will be deleted');
 if (userToRemoveLetters === null) {
     alert(bye);
     isValid = false;
 }
-else if (!/^[a-zA-Z]+$/.test(userToRemoveLetters)){
-    alert('these letters are not in the phrase');
+else if (!/^[a-zA-Z]+$/.test(userToRemoveLetters.trim())){
+    alert('there are not letters');
     isValid = false;
 }
 else {
     const toRemove = userToRemoveLetters.split(''); 
-    // розбиває на символи і зберігає в змінній букви які потім в функції видаляться
-function putMessage (message){
+
+    const found = toRemove.some(letter => userMessage.includes(letter));
+    // some перевіряє чи є такі букви в слові
+    if (!found) {
+        alert('these letters are not in the phrase');
+        isValid = false;
+    }
+
+function putMessage (message){ // delete letters in the words
 let result = message
-.split('') // символи
-.filter(char => !toRemove.includes(char)) // перевіряє кожен символ якщо збігається виключає його
-.join(''); // знову на рядок
+  .split('')
+  .filter(char => !toRemove.includes(char))
+  .join('');
+
 alert('in ' + result + ' was deleted ' + userToRemoveLetters + ' letter/letters');
 }
 
-if (isValid) { // якщо данні неправильні функція не виконається
-putMessage(userMessage); // оголошує функцію
+if (isValid) {
+putMessage(userMessage);
+}
 }
 }
