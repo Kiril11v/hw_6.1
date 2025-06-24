@@ -32,17 +32,13 @@ else {
         isValid = false;
     }
 
-function putMessage (message){ // delete letters in the words
-let result = message
-  .split('')
-  .filter(char => !toRemove.includes(char))
-  .join('');
-
-alert('in ' + result + ' was deleted ' + userToRemoveLetters + ' letter/letters');
+function putMessage (message, toRemove){ // delete letters in the words
+return message.split('').filter(char => !toRemove.includes(char)).join('');
 }
 
 if (isValid) {
-putMessage(userMessage);
+const result = putMessage(userMessage, toRemove);
+alert('in ' + result + ' was deleted ' + userToRemoveLetters + ' letter(s)');
 }
 }
 }
